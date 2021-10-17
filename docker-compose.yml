@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  code:
+    container_name: code
+    build:
+      context: ./code
+    volumes:
+      - ./code:/code
+    tty: true

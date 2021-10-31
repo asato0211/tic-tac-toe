@@ -1,25 +1,26 @@
 require_relative "../code/game/game.rb"
 require_relative "../code/base_player/base_player.rb"
-require_relative "../code/cpu_player/cpu_player.rb"
 require_relative "../code/guest_player/guest_player.rb"
+require_relative "../code/random_player/random_player.rb"
 
 game = Game.new
 guest = GuestPlayer.new
-cpu = CpuPlayer.new
+random = RandomPlayer.new
 
 if game.is_guest_player_first?
-  players = [guest,cpu]
+  players = [guest,random]
 else
-  players = [cpu,guest]
+  players = [random,guest]
 end
 
 while game.is_continue?
   players.each.with_index(1) do |player,i|
     row,col = player.select_position(game.board)
     piece = game.get_piece(player.class)
+    redo if !game.can_place_piece?(row,col)
     game.put_piece(row,col,piece)
     break if game.is_continue? == false
-    game.print_board if player.class == CpuPlayer && i == 1
+    game.print_board if player.class == RandomPlayer && i == 1
   end
   game.print_board
 end

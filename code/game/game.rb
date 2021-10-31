@@ -33,8 +33,26 @@ class Game
     end
   end
 
+  # 指定した座標にまだ駒が置かれていなければtrueを返す
+  def can_place_piece?(row,col)
+    return true if row >= 0 && row <= 2 && col >= 0 && col <= 2 && @board[row][col] == NONE
+    return false
+  end
+
   def put_piece(row,col,piece)
     @board[row][col] = piece
+  end
+
+  # Minimax
+  def get_new_game_state(row,col,piece)
+    tmp_game = Marshal.dump(@board)
+    copy_game = Marshal.load(tmp_game)
+    copy_game[row][col] = piece
+  end
+
+  def minimax_is_lose?
+    return true if is_win?(PIECE_O)
+    return false
   end
 
   # 勝利判定
@@ -56,7 +74,7 @@ class Game
       return false
     elsif is_win?(PIECE_X)
       return false
-    elsif is_empty?() == false
+    elsif is_empty? == false
       return false
     end
     return true

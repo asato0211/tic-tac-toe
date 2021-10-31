@@ -10,9 +10,9 @@ class GuestPlayer < BasePlayer
   # 標準入力
   def player_choice
     puts "Your Turn!!"
-    row = gets.to_i
-    col = gets.to_i
-    return row,col
+    row = gets
+    col = gets
+    return row.to_i,col.to_i
   end
 
 end

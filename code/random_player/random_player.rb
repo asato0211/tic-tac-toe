@@ -1,8 +1,7 @@
 class RandomPlayer < BasePlayer
-
   # BasePlayerのメソッドをオーバーライド
   def select_position(board)
-    row,col = random_select_position(board)
+    row, col = random_select_position(board)
   end
 
   private
@@ -12,7 +11,7 @@ class RandomPlayer < BasePlayer
     row = rand(0..2)
     col = rand(0..2)
     if board[row][col] == NONE
-      return row,col
+      [row, col]
     else
       random_select_position(board)
     end

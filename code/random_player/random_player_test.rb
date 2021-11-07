@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative '../base_player/base_player'
 require_relative '../random_player/random_player'
 require_relative '../game/game'
+require_relative '../const'
 
 class RandomPlayerTest < Minitest::Test
   def test_select_position

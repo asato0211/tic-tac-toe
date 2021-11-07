@@ -1,4 +1,5 @@
 require_relative '../game/game'
+require_relative '../const'
 
 class MinimaxPlayer < BasePlayer
   def initialize

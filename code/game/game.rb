@@ -1,6 +1,4 @@
-PIECE_O = ' o '
-PIECE_X = ' x '
-NONE    = '   '
+require_relative '../const'
 
 # ゲームの進行状況を管理するクラス
 class Game
@@ -16,8 +14,8 @@ class Game
     先攻か後攻を選んで下さい！
     (1 => 先攻、2 => 後攻)
     TEXT
-    gets_result = gets.to_i
-    case gets_result
+    gets_result = gets
+    case gets_result.to_i
     when 1
       true
     when 2
@@ -79,7 +77,7 @@ class Game
       return false
     elsif win?(PIECE_X)
       return false
-    elsif empty? == false
+    elsif exists_empty_space == false
       return false
     end
 
@@ -102,7 +100,7 @@ class Game
   private
 
   # ボードに空き(NONE)がある場合にtrueを返す
-  def empty?
+  def exists_empty_space
     3.times do |i|
       3.times do |j|
         return true if @board[i][j] == NONE

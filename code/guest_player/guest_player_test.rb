@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative '../base_player/base_player'
 require_relative '../guest_player/guest_player'
 require_relative '../game/game'
+require_relative '../const'
 
 class GuestPlayerTest < Minitest::Test
   def test_select_position

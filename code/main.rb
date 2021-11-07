@@ -1,4 +1,5 @@
 require_relative '../code/game/game'
+require_relative '../code/const'
 require_relative '../code/base_player/base_player'
 require_relative '../code/guest_player/guest_player'
 require_relative '../code/random_player/random_player'

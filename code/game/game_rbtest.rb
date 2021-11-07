@@ -1,5 +1,6 @@
 require_relative '../base_player/base_player'
 require_relative '../game/game'
+require_relative '../const'
 
 # can_place_pieceのテスト
 # return true

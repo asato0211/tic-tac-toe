@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require_relative '../game/game'
+require_relative '../const'
 require_relative '../base_player/base_player'
 require_relative '../guest_player/guest_player'
 require_relative '../random_player/random_player'

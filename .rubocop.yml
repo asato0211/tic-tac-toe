@@ -1,0 +1,31 @@
+AllCops:
+  NewCops: enable
+
+EnforcedStyle: double_quotes
+
+Style/YodaCondition:
+  EnforcedStyle: require_for_all_comparison_operators
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+# Style/Documentation:
+#   Enabled: false
+
+# Style/FrozenStringLiteralComment:
+#   Enabled: false
+
+Metrics/AbcSize:
+  Max: 70
+
+Metrics/CyclomaticComplexity:
+  Max: 25
+
+Metrics/PerceivedComplexity:
+  Max: 25
+
+Metrics/MethodLength:
+  Max: 25

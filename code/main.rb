@@ -18,10 +18,8 @@ while game.continue?
   players.each.with_index(1) do |player, i|
     row, col = player.select_position(game.board)
     piece = game.get_piece(player.class)
-    redo unless game.can_place_piece?(row, col)
     game.put_piece(row, col, piece)
     break if game.continue? == false
-
     game.print_board if player.instance_of?(RandomPlayer) && i == 1
   end
   game.print_board

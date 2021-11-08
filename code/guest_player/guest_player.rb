@@ -9,12 +9,12 @@ class GuestPlayer < BasePlayer
   # 標準入力
   def player_choice(board)
     print '行番号を入力してください：'
-    row = gets
+    row = gets.to_i
     print '列番号を入力してください：'
-    col = gets
+    col = gets.to_i
 
     validate_position(row,col,board)
-    [row.to_i, col.to_i]
+    [row, col]
   rescue GetsPositionError => e
     puts ""
     puts "入力項目に誤りがあります"

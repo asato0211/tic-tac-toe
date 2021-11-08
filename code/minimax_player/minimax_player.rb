@@ -1,6 +1,8 @@
 require_relative '../game/game'
 require_relative '../const'
 
+require_relative '../base_player/base_player'
+
 class MinimaxPlayer < BasePlayer
   def initialize
     @best_positon = []
@@ -52,12 +54,18 @@ class MinimaxPlayer < BasePlayer
 
   # 評価関数（ゲームツリーの深さに応じて点数をつける)
   def evaluate_state(game, depth)
-    if game.win?(PIECE_O)
+    if game.win?(PIECE_X) # minimax
       10 - depth
-    elsif game.minimax_is_lose?(PIECE_O)
+    elsif game.win?(PIECE_O) # guest
       depth - 10
     else
       0
     end
   end
 end
+
+game = Game.new
+minimax = MinimaxPlayer.new
+
+minimax.select_position(game)
+

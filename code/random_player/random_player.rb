@@ -1,7 +1,7 @@
 class RandomPlayer < BasePlayer
   # BasePlayerのメソッドをオーバーライド
-  def select_position(board)
-    row, col = random_select_position(board)
+  def select_position(game)
+    row, col = random_select_position(game.board)
   end
 
   private

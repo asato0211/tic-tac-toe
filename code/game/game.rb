@@ -44,19 +44,6 @@ class Game
     @board[row][col] = piece
   end
 
-  # Minimax
-  # def get_new_game_state(row, col, piece)
-  #   tmp_game = Marshal.dump(@board)
-  #   copy_game = Marshal.load(tmp_game)
-  #   copy_game[row][col] = piece
-  # end
-
-  # def minimax_is_lose?
-  #   return true if win?(PIECE_O)
-
-  #   false
-  # end
-
   # 勝利判定
   def win?(piece)
     return true if piece == @board[0][0] && piece == @board[0][1] && piece == @board[0][2]
@@ -68,20 +55,16 @@ class Game
     return true if piece == @board[0][0] && piece == @board[1][1] && piece == @board[2][2]
     return true if piece == @board[0][2] && piece == @board[1][1] && piece == @board[2][0]
 
-    false
+    return false
   end
 
   # まだ勝敗がついていないかつ、ボードが埋まっていない場合にtrueを返す
   def continue?
-    if win?(PIECE_O)
-      return false
-    elsif win?(PIECE_X)
-      return false
-    elsif exists_empty_space == false
-      return false
-    end
+    return false if win?(PIECE_O)
+    return false if win?(PIECE_X)
+    return false unless exists_empty_space
 
-    true
+    return true
   end
 
   # ボードを出力

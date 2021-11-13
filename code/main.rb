@@ -3,24 +3,25 @@ require_relative '../code/const'
 require_relative '../code/base_player/base_player'
 require_relative '../code/guest_player/guest_player'
 require_relative '../code/random_player/random_player'
+require_relative '../code/minimax_player/minimax_player'
 
 game = Game.new
 guest = GuestPlayer.new
-random = RandomPlayer.new
+minmax = MinimaxPlayer.new
 
-players = if game.guest_player_first?
-            [guest, random]
-          else
-            [random, guest]
-          end
+if game.guest_player_first?
+  players = [guest, minmax]
+else
+  players = [minmax, guest]
+end
 
 while game.continue?
   players.each.with_index(1) do |player, i|
-    row, col = player.select_position(game.board)
+    row, col = player.select_position(game)
     piece = game.get_piece(player.class)
     game.put_piece(row, col, piece)
     break if game.continue? == false
-    game.print_board if player.instance_of?(RandomPlayer) && i == 1
+    game.print_board if player.instance_of?(MinimaxPlayer) && i == 1
   end
   game.print_board
 end

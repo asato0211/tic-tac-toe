@@ -1,7 +1,7 @@
 class GuestPlayer < BasePlayer
   # BasePlayerのメソッドをオーバーライド
-  def select_position(board)
-    row, col = player_choice(board)
+  def select_position(game)
+    row, col = player_choice(game.board)
   end
 
   private

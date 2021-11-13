@@ -6,14 +6,6 @@ class MinimaxPlayer < BasePlayer
     @call_minimax_count = 0
   end
   
-  def get_next_piece(dept)
-    if dept.odd?
-      @current_player_piece = PIECE_X
-    else
-      @current_player_piece = PIECE_O
-    end
-  end
-  
   # BasePlayerのメソッドをオーバーライド
   def select_position(game)
     @best_positon = []
@@ -25,8 +17,6 @@ class MinimaxPlayer < BasePlayer
     [row, col]
   end
   
-  
-  # 一番最善の一手を返す（row,col）
   def minimax_player_select_position(game,depth)
     return score(game,depth) unless game.continue?
     depth += 1
@@ -45,7 +35,6 @@ class MinimaxPlayer < BasePlayer
       end
     end
 
-    # 生成された状態ごとに点数が格納された配列から、minまたはmaxを求める
     if @current_player_piece == PIECE_X
       max_score_index = scores.each_with_index.max[1]
       @best_positon = positions[max_score_index]
@@ -54,6 +43,16 @@ class MinimaxPlayer < BasePlayer
       min_score_index = scores.each_with_index.min[1]
       @best_position = positions[min_score_index]
       return scores[min_score_index]
+    end
+  end
+
+  private
+  
+  def get_next_piece(dept)
+    if dept.odd?
+      @current_player_piece = PIECE_X
+    else
+      @current_player_piece = PIECE_O
     end
   end
 
@@ -67,5 +66,5 @@ class MinimaxPlayer < BasePlayer
       return 0
     end
   end
-
+  
 end

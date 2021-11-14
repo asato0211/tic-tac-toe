@@ -2,40 +2,40 @@ require_relative '../game/game'
 require_relative '../const'
 
 class MinimaxPlayer < BasePlayer
-  def initialize
-    @call_minimax_count = 0
-  end
   
   # BasePlayerのメソッドをオーバーライド
+  # 引数：Gameのインスタンス
+  # 戻り値：Minimaxが選んだベストポジション(row,col)
   def select_position(game)
     @best_positon = []
-    @current_player_piece = PIECE_X   
+    @current_player_piece = PIECE_O
     
-    minimax_player_select_position(game,0)
+    minimax(game,0)
     row = @best_positon[0]
     col = @best_positon[1]
-    [row, col]
+    return [row, col]
   end
   
-  def minimax_player_select_position(game,depth)
-    return score(game,depth) unless game.continue?
+  def minimax(game,depth)
+    return evaluate(game,depth) unless game.continue?
     depth += 1
     
-    scores = []
-    positions = []
+    scores = []     # 点数を格納する配列
+    positions = []  # 座標[row,col]を格納する配列
     
     3.times do |row|
       3.times do |col|
         next unless game.board[row][col] == NONE
         possible_game = Marshal.load(Marshal.dump(game))
-        get_next_piece(depth)
+        update_to_next_piece(depth)
         possible_game.board[row][col] = @current_player_piece
-        scores << minimax_player_select_position(possible_game,depth)
+        scores << minimax(possible_game,depth)
         positions << [row, col]
       end
     end
-
-    if @current_player_piece == PIECE_X
+    
+    # depth(深さ)が奇数だったら、ミニマックスの順番とみなす
+    if depth.odd?
       max_score_index = scores.each_with_index.max[1]
       @best_positon = positions[max_score_index]
       return scores[max_score_index]
@@ -48,16 +48,15 @@ class MinimaxPlayer < BasePlayer
 
   private
   
-  def get_next_piece(dept)
-    if dept.odd?
+  def update_to_next_piece(depth)
+    if depth.odd?
       @current_player_piece = PIECE_X
     else
       @current_player_piece = PIECE_O
     end
   end
 
-  # minimaxが勝った場合はプラス10点、guestが勝ったらマイナス10点、そうでなければ0点を返す
-  def score(game,depth)
+  def evaluate(game,depth)
     if game.win?(PIECE_X)
       return 10 - depth
     elsif game.win?(PIECE_O)

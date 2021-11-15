@@ -2,7 +2,7 @@ require_relative '../const'
 
 # ゲームの進行状況を管理するクラス
 class Game
-  attr_accessor :board
+  attr_reader :board
 
   def initialize
     @board = Array.new(3) { Array.new(3, NONE) }

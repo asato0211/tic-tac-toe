@@ -8,15 +8,14 @@ class MinimaxPlayer < BasePlayer
   # 戻り値：Minimaxが選んだベストポジション(row,col)
   def select_position(game)
     @best_positon = []
-    @current_player_piece = PIECE_O
     
-    minimax(game,0)
+    minimax(game,0,PIECE_X)
     row = @best_positon[0]
     col = @best_positon[1]
     return [row, col]
   end
   
-  def minimax(game,depth)
+  def minimax(game,depth,piece)
     return evaluate(game,depth) unless game.continue?
     depth += 1
     
@@ -27,9 +26,9 @@ class MinimaxPlayer < BasePlayer
       3.times do |col|
         next unless game.board[row][col] == NONE
         possible_game = Marshal.load(Marshal.dump(game))
-        update_to_next_piece(depth)
-        possible_game.board[row][col] = @current_player_piece
-        scores << minimax(possible_game,depth)
+        possible_game.board[row][col] = piece
+        piece = update_to_next_piece(depth)
+        scores << minimax(possible_game,depth,piece)
         positions << [row, col]
       end
     end
@@ -50,9 +49,9 @@ class MinimaxPlayer < BasePlayer
   
   def update_to_next_piece(depth)
     if depth.odd?
-      @current_player_piece = PIECE_X
+      PIECE_X
     else
-      @current_player_piece = PIECE_O
+      PIECE_O
     end
   end
 

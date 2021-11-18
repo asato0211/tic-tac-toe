@@ -26,8 +26,8 @@ class MinimaxPlayer < BasePlayer
       3.times do |col|
         next unless game.board[row][col] == NONE
         possible_game = Marshal.load(Marshal.dump(game))
+        piece = get_current_piece(depth)
         possible_game.board[row][col] = piece
-        piece = update_to_next_piece(depth)
         scores << minimax(possible_game,depth,piece)
         positions << [row, col]
       end
@@ -47,7 +47,7 @@ class MinimaxPlayer < BasePlayer
 
   private
   
-  def update_to_next_piece(depth)
+  def get_current_piece(depth)
     if depth.odd?
       PIECE_X
     else
@@ -55,6 +55,7 @@ class MinimaxPlayer < BasePlayer
     end
   end
 
+  # 評価関数(scores配列に点数を返す)
   def evaluate(game,depth)
     if game.win?(PIECE_X)
       return 10 - depth

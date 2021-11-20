@@ -15,6 +15,8 @@ class MinimaxPlayer < BasePlayer
     return [row, col]
   end
   
+  private
+  
   def minimax(game,depth,piece)
     return evaluate(game,depth) if game.game_over?
     depth += 1
@@ -45,8 +47,6 @@ class MinimaxPlayer < BasePlayer
       return scores[min_score_index]
     end
   end
-
-  private
   
   def get_current_piece(depth)
     if depth.odd?

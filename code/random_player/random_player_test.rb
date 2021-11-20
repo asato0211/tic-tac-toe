@@ -8,17 +8,18 @@ class RandomPlayerTest < Minitest::Test
   def test_select_position
     # boardの空いている座標が2列目の右端のみの場合、座標[1,2]を返すことを担保
     random = RandomPlayer.new
-    board = [
+    game_state_1 = Game.new
+    game_state_1.board = [
       [PIECE_X, PIECE_O, PIECE_O],
       [PIECE_O, PIECE_X, NONE],
       [PIECE_X, PIECE_O, PIECE_O]
     ]
-    assert_equal [1, 2], random.select_position(board)
+    assert_equal [1, 2], random.select_position(game_state_1)
 
     # スタブ[0,0]
     game = Game.new
     random.stub :select_position, [0, 0] do
-      assert_equal [0, 0], random.select_position(game.board)
+      assert_equal [0, 0], random.select_position(game)
     end
 
     # スタブ[2,2]

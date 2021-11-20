@@ -14,9 +14,10 @@ class GuestPlayerTest < Minitest::Test
       assert_equal [0, 0], guest.select_position(game.board)
     end
 
-    # 標準入力で指定した(row=2,col=2)がボード用の座標指定[1,1]になることを担保
+    # 標準入力で指定した(row=2,col=2)がボード用の座標指定[2,2]になることを担保
     guest.stub :select_position, [2, 2] do
-      assert_equal [2, 2], guest.select_position(game.board)
+      assert_equal [2,2], guest.select_position(game.board)
     end
+
   end
 end

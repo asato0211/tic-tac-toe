@@ -46,7 +46,7 @@ class MinimaxPlayerTest < Minitest::Test
     ]
     assert_equal [0,2], minimax.select_position(game_state_4)    
 
-    # 最後のターンで絶対に引き分けになる状態 → 空いている座標[行1,列0]を打つことを担保
+    # 最後のターンで絶対に引き分けになる状態 → 空いている座標[行1,列0]に打つことを担保
     game_state_5 = Game.new
     game_state_5.board = [
       [PIECE_O,PIECE_X,PIECE_O],

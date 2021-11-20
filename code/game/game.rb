@@ -10,19 +10,13 @@ class Game
 
   # guest_playerが先攻を選んだ場合にtrueを返す
   def guest_player_first?
-    puts <<-TEXT
-    先攻か後攻を選んで下さい！
-    (1 => 先攻、2 => 後攻)
-    TEXT
-    gets_result = gets
-    case gets_result.to_i
-    when 1
-      true
-    when 2
-      false
-    else
-      guest_player_first?
-    end
+    puts "先攻か後攻を選んで下さい！"
+    puts "(1 => 先攻、2 => 後攻)"
+    gets_result = gets.to_i
+    return true  if gets_result == 1
+    return false if gets_result == 2
+
+    guest_player_first?
   end
 
   def get_piece(player)
@@ -35,9 +29,13 @@ class Game
 
   # 指定した座標にまだ駒が置かれていなければtrueを返す
   def can_place_piece?(row, col)
-    return true if row >= 0 && row <= 2 && col >= 0 && col <= 2 && @board[row][col] == NONE
+    return true if @board[row][col] == NONE
+    return false
+  end
 
-    false
+  # minimaxで使用 (Marshal = 深いコピー)
+  def copy_game
+    Marshal.load(Marshal.dump(self))
   end
 
   def put_piece(row, col, piece)
@@ -67,6 +65,12 @@ class Game
     return true
   end
 
+  def game_over?
+    return true unless continue?
+
+    return false
+  end
+
   # ボードを出力
   def print_board
     puts <<-BOARD
@@ -89,6 +93,6 @@ class Game
         return true if @board[i][j] == NONE
       end
     end
-    false
+    return false
   end
 end

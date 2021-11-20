@@ -16,7 +16,7 @@ class MinimaxPlayer < BasePlayer
   end
   
   def minimax(game,depth,piece)
-    return evaluate(game,depth) unless game.continue?
+    return evaluate(game,depth) if game.game_over?
     depth += 1
     
     scores = []     # 点数を格納する配列
@@ -24,16 +24,17 @@ class MinimaxPlayer < BasePlayer
     
     3.times do |row|
       3.times do |col|
-        next unless game.board[row][col] == NONE
-        possible_game = Marshal.load(Marshal.dump(game))
-        piece = get_current_piece(depth)
-        possible_game.board[row][col] = piece
-        scores << minimax(possible_game,depth,piece)
-        positions << [row, col]
+        if game.can_place_piece?(row,col)
+          possible_game = game.copy_game
+          piece = get_current_piece(depth)
+          possible_game.put_piece(row,col,piece)
+          scores << minimax(possible_game,depth,piece)
+          positions << [row, col]
+        end
       end
     end
     
-    # depth(深さ)が奇数だったら、ミニマックスの順番とみなす
+    # depth(ゲームツリーの深さ)が奇数だったら、ミニマックスの順番とみなす
     if depth.odd?
       max_score_index = scores.each_with_index.max[1]
       @best_positon = positions[max_score_index]

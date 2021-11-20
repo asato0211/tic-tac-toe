@@ -3,39 +3,54 @@ require_relative '../game/game'
 require_relative '../base_player/base_player'
 require_relative '../guest_player/guest_player'
 require_relative '../random_player/random_player'
+require_relative '../minimax_player/minimax_player'
 
 class GameTest < Minitest::Test
-  def test_get_piece
-    # ゲストの駒 => " o " になる事を担保
+
+  def test_guest_player_first?
     game = Game.new
+
+    # 標準入力で1を入力した場合に、trueを返すことを担保 → ゲスト先攻
+    game.stub(:puts,nil) do  
+      game.stub(:gets,1) do
+        assert_equal true, game.guest_player_first?
+      end
+    end
+
+    # 標準入力で2を入力した場合に、falseを返すことを担保 → ゲスト後攻
+    game.stub(:puts,nil) do  
+      game.stub(:gets,2) do
+        assert_equal false, game.guest_player_first?
+      end
+    end
+  end
+
+  def test_get_piece
+    game = Game.new
+
+    # ゲストの駒 => " o " になる事を担保
     guest = GuestPlayer.new
     assert_equal PIECE_O, game.get_piece(guest.class)
 
-    # Rundomの駒 => " x " になる事を担保
-    random = RandomPlayer.new
-    assert_equal PIECE_X, game.get_piece(random.class)
+    # Minimaxの駒 => " x " になる事を担保
+    minimax = MinimaxPlayer.new
+    assert_equal PIECE_X, game.get_piece(minimax.class)
   end
 
   def test_can_place_piece?
     game = Game.new
 
-    # ボードの中身が全てNONEの状態 --> rowに0が入るとtrueが帰ってくることを担保
+    # ボードの中身が全てNONEの状態 --> trueが帰ってくることを担保
     assert_equal true, game.can_place_piece?(0, 2)
 
-    # ボードの中身が全てNONEの状態 --> colに0が入るとtrueが帰ってくることを担保
-    assert_equal true, game.can_place_piece?(2, 0)
-
-    # ボードの中身が全てNONEの状態 --> rowに3が入るとfalseが帰ってくることを担保
-    assert_equal false, game.can_place_piece?(3, 2)
-
-    # ボードの中身が全てNONEの状態 --> colに3が入るとfalseが帰ってくることを担保
-    assert_equal false, game.can_place_piece?(2, 3)
-
-    # ボードの中身が全てNONEの状態 --> rowに-1が入るとfalseが帰ってくることを担保
-    assert_equal false, game.can_place_piece?(-1, 2)
-
-    # ボードの中身が全てNONEの状態 --> colに-1が入るとfalseが帰ってくることを担保
-    assert_equal false, game.can_place_piece?(2, -1)
+    # ボードの中身で空いている箇所が(行1,列2)のみの状態 --> trueが帰ってくることを担保
+    full_board_game = Game.new
+    full_board_game.board = [
+      [PIECE_O, PIECE_X, PIECE_X],
+      [PIECE_X, PIECE_O, NONE],
+      [PIECE_X, PIECE_O, PIECE_X]
+    ]
+    assert_equal true, full_board_game.can_place_piece?(1, 2)
 
     # ボードの中身が全て埋まっている状態 --> falseが帰ってくることを担保
     full_board_game = Game.new

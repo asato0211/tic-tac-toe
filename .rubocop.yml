@@ -12,12 +12,6 @@ Style/NumericPredicate:
 Style/NegatedIf:
   Enabled: false
 
-# Style/Documentation:
-#   Enabled: false
-
-# Style/FrozenStringLiteralComment:
-#   Enabled: false
-
 Metrics/AbcSize:
   Max: 70
 

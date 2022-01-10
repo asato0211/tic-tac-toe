@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../code/game/game'
 require_relative '../code/const'
 require_relative '../code/base_player/base_player'
@@ -9,11 +11,11 @@ game = Game.new
 guest = GuestPlayer.new
 minmax = MinimaxPlayer.new
 
-if game.guest_player_first?
-  players = [guest, minmax]
-else
-  players = [minmax, guest]
-end
+players = if game.guest_player_first?
+            [guest, minmax]
+          else
+            [minmax, guest]
+          end
 
 while game.continue?
   players.each.with_index(1) do |player, i|
@@ -21,6 +23,7 @@ while game.continue?
     piece = game.get_piece(player.class)
     game.put_piece(row, col, piece)
     break if game.continue? == false
+
     game.print_board if player.instance_of?(MinimaxPlayer) && i == 1
   end
   game.print_board

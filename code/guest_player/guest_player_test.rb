@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
 require_relative '../base_player/base_player'
 require_relative '../guest_player/guest_player'
@@ -16,8 +18,7 @@ class GuestPlayerTest < Minitest::Test
 
     # 標準入力で指定した(row=2,col=2)がボード用の座標指定[2,2]になることを担保
     guest.stub :select_position, [2, 2] do
-      assert_equal [2,2], guest.select_position(game.board)
+      assert_equal [2, 2], guest.select_position(game.board)
     end
-
   end
 end

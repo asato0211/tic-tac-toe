@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GuestPlayer < BasePlayer
   # BasePlayerのメソッドをオーバーライド
   def select_position(game)
@@ -13,16 +15,15 @@ class GuestPlayer < BasePlayer
     print '列番号を入力してください：'
     col = gets.to_i
 
-    validate_position(row,col,board)
+    validate_position(row, col, board)
     [row, col]
   rescue GetsPositionError => e
-    puts ""
-    puts "入力項目に誤りがあります"
+    puts ''
+    puts '入力項目に誤りがあります'
     puts e.message
-    puts ""
+    puts ''
     player_choice(board)
   rescue StandardError => e
     raise e
   end
-
 end

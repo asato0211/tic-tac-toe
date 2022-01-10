@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RandomPlayer < BasePlayer
   # BasePlayerのメソッドをオーバーライド
   def select_position(game)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
 require_relative '../game/game'
 require_relative '../base_player/base_player'
@@ -6,20 +8,19 @@ require_relative '../random_player/random_player'
 require_relative '../minimax_player/minimax_player'
 
 class GameTest < Minitest::Test
-
   def test_guest_player_first?
     game = Game.new
 
     # 標準入力で1を入力した場合に、trueを返すことを担保 → ゲスト先攻
-    game.stub(:puts,nil) do  
-      game.stub(:gets,1) do
+    game.stub(:puts, nil) do
+      game.stub(:gets, 1) do
         assert_equal true, game.guest_player_first?
       end
     end
 
     # 標準入力で2を入力した場合に、falseを返すことを担保 → ゲスト後攻
-    game.stub(:puts,nil) do  
-      game.stub(:gets,2) do
+    game.stub(:puts, nil) do
+      game.stub(:gets, 2) do
         assert_equal false, game.guest_player_first?
       end
     end
@@ -117,7 +118,7 @@ class GameTest < Minitest::Test
     ]
     assert_equal true, diagonal.win?(PIECE_X)
 
-    # 引き分け場合、falseが帰ってくることを担保
+    # 引き分けの場合、falseが帰ってくることを担保
     draw = Game.new
     draw.board = [
       [PIECE_X, PIECE_O, PIECE_O],

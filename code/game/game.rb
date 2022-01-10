@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../const'
 
 # ゲームの進行状況を管理するクラス
@@ -10,8 +12,8 @@ class Game
 
   # guest_playerが先攻を選んだ場合にtrueを返す
   def guest_player_first?
-    puts "先攻か後攻を選んで下さい！"
-    puts "(1 => 先攻、2 => 後攻)"
+    puts '先攻か後攻を選んで下さい！'
+    puts '(1 => 先攻、2 => 後攻)'
     gets_result = gets.to_i
     return true  if gets_result == 1
     return false if gets_result == 2
@@ -29,8 +31,7 @@ class Game
 
   # 指定した座標にまだ駒が置かれていなければtrueを返す
   def can_place_piece?(row, col)
-    return true if @board[row][col] == NONE
-    return false
+    @board[row][col] == NONE
   end
 
   # minimaxで使用 (Marshal = 深いコピー)
@@ -53,7 +54,7 @@ class Game
     return true if piece == @board[0][0] && piece == @board[1][1] && piece == @board[2][2]
     return true if piece == @board[0][2] && piece == @board[1][1] && piece == @board[2][0]
 
-    return false
+    false
   end
 
   # まだ勝敗がついていないかつ、ボードが埋まっていない場合にtrueを返す
@@ -62,13 +63,11 @@ class Game
     return false if win?(PIECE_X)
     return false unless exists_empty_space
 
-    return true
+    true
   end
 
   def game_over?
     return true unless continue?
-
-    return false
   end
 
   # ボードを出力
@@ -93,6 +92,6 @@ class Game
         return true if @board[i][j] == NONE
       end
     end
-    return false
+    false
   end
 end

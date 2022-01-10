@@ -15,3 +15,6 @@ rbtest:
 	ruby random_player/random_player_test.rb
 	ruby minimax_player/minimax_player_test.rb
 	echo "complete test"
+
+profile:
+	docker exec -it code bundle exec stackprof stackprof.dump

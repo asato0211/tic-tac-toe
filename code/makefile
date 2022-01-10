@@ -1,5 +1,3 @@
-# コマンド(make rbtest)を作成
-
 up:
 	docker-compose up -d
 

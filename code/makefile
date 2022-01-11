@@ -15,4 +15,4 @@ rbtest:
 	echo "complete test"
 
 profile:
-	docker exec -it code bundle exec stackprof stackprof.dump
+	docker exec -it code ruby rblineprof.rb

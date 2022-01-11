@@ -22,9 +22,9 @@ while game.continue?
     row, col = player.select_position(game)
     piece = game.get_piece(player.class)
     game.put_piece(row, col, piece)
-    break if game.continue? == false
+    break if false == game.continue?
 
-    game.print_board if player.instance_of?(MinimaxPlayer) && i == 1
+    game.print_board if player.instance_of?(MinimaxPlayer) && 1 == i
   end
   game.print_board
 end

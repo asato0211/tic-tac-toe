@@ -15,8 +15,8 @@ class Game
     puts '先攻か後攻を選んで下さい！'
     puts '(1 => 先攻、2 => 後攻)'
     gets_result = gets.to_i
-    return true  if gets_result == 1
-    return false if gets_result == 2
+    return true  if 1 == gets_result
+    return false if 2 == gets_result
 
     guest_player_first?
   end

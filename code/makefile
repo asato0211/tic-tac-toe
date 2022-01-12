@@ -15,4 +15,4 @@ rbtest:
 	echo "complete test"
 
 profile:
-	docker exec -it code ruby rblineprof.rb
+	docker exec -it code ruby minimax_player/prof_minimax_player.rb

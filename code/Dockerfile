@@ -1,6 +1,9 @@
-FROM ruby:2.6
-RUN gem update --system
-RUN gem install bundler
-COPY Gemfile ./Gemfile
-RUN bundle install
+FROM ruby:3.1
+
 WORKDIR /code
+
+COPY Gemfile ./Gemfile
+
+RUN gem update --system \
+  && gem install bundler \
+  && bundle install

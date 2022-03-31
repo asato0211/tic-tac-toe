@@ -9,13 +9,9 @@ require_relative '../code/minimax_player/minimax_player'
 
 game = Game.new
 guest = GuestPlayer.new
-minmax = MinimaxPlayer.new
+minimax = MinimaxPlayer.new
 
-players = if game.guest_player_first?
-            [guest, minmax]
-          else
-            [minmax, guest]
-          end
+players = game.guest_player_first? ? [guest, minimax] : [minimax, guest]
 
 while game.continue?
   players.each.with_index(1) do |player, i|
@@ -26,13 +22,18 @@ while game.continue?
 
     game.print_board if player.instance_of?(MinimaxPlayer) && 1 == i
   end
+
   game.print_board
 end
 
 if game.win?(PIECE_O)
   puts 'ユーザーの勝ち!!'
-elsif game.win?(PIECE_X)
-  puts 'CPUの勝ち!!'
-else
-  puts '引き分け!!'
+  return
 end
+
+if game.win?(PIECE_X)
+  puts 'CPUの勝ち!!'
+  return
+end
+
+puts '引き分け!!'
